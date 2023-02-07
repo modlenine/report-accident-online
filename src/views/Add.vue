@@ -217,12 +217,40 @@ export default {
             const data_name = $(this).attr('data_name');
             const data_emcode = $(this).attr('data_emcode');
             const data_DeptCode = $(this).attr('data_DeptCode');
-            const data_Dept = $(this).attr('data_Dept');
             const data_positionname = $(this).attr('data_positionname');
+
+            let conDeptCode = '';
+            if(data_DeptCode == 1001){
+                conDeptCode = 'ADMIN';
+            }else if(data_DeptCode == 1002){
+                conDeptCode = 'IT';
+            }else if(data_DeptCode == 1003){
+                conDeptCode = 'ACCOUNT & FINANCE';
+            }else if(data_DeptCode == 1004){
+                conDeptCode = 'EXPORT';
+            }else if(data_DeptCode == 1005){
+                conDeptCode = 'HR';
+            }else if(data_DeptCode == 1006){
+                conDeptCode = 'SALES';
+            }else if(data_DeptCode == 1007){
+                conDeptCode = 'PRODUCTION';
+            }else if(data_DeptCode == 1009){
+                conDeptCode = 'ENGINEER';
+            }else if(data_DeptCode == 1010){
+                conDeptCode = 'PLANNING';
+            }else if(data_DeptCode == 1011){
+                conDeptCode = 'SD';
+            }else if(data_DeptCode == 1013){
+                conDeptCode = 'WAREHOUSE';
+            }else if(data_DeptCode == 1014){
+                conDeptCode = 'QC';
+            }else if(data_DeptCode == 1015){
+                conDeptCode = 'LAB';
+            }
 
             $('#ip-acci_name').val(data_name);
             $('#ip-acci_ecode').val(data_emcode);
-            $('#ip-acci_dept').val(data_Dept);
+            $('#ip-acci_dept').val(conDeptCode);
             $('#ip-acci_deptcode').val(data_DeptCode);
             $('#ip-acci_res').val(data_positionname);
 
@@ -370,7 +398,6 @@ export default {
                                 data_name="`+userResult[i].FnameT+` `+userResult[i].LnameT+`"
                                 data_emcode="`+userResult[i].emcode+`"
                                 data_DeptCode="`+userResult[i].DeptCode+`"
-                                data_Dept="`+userResult[i].Dept+`"
                                 data_positionname="`+userResult[i].PositionName+`"
                             >
                             <b>ชื่อ-สกุล : </b>`+userResult[i].FnameT+` `+userResult[i].LnameT+`&nbsp<b>รหัสพนักงาน : </b>`+userResult[i].emcode+`
@@ -382,7 +409,26 @@ export default {
                     $('#showEmployeeData').html(html);
                 }
             });
-        }
+        },
+
+        conDeptCode(deptCode){
+            // switch(deptCode){
+            //     case 1001 : return 'ADMIN'
+            //     case 1002 : return 'IT'
+            //     case 1003 : return 'ACCOUNT & FINANCE'
+            //     case 1004 : return 'EXPORT'
+            //     case 1005 : return 'HR'
+            //     case 1006 : return 'SALES'
+            //     case 1007 : return 'PRODUCTION'
+            //     case 1009 : return 'ENGINEER'
+            //     case 1010 : return 'PLANNING'
+            //     case 1011 : return 'SD'
+            //     case 1013 : return 'WAREHOUSE'
+            //     case 1014 : return 'QC'
+            //     case 1015 : return 'LAB'
+            // }
+            console.log(deptCode);
+        },
 
         
     },
