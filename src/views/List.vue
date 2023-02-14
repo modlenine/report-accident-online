@@ -24,6 +24,7 @@
                       <tr>
                         <th class="td1">เลขที่รายการ</th>
                         <th class="td2">วันที่เกิดเหตุ</th>
+                        <th class="td2">วันที่แจ้ง</th>
                         <th class="td3">สถานที่เกิดเหตุ</th>
                         <th class="td4">ประเภท</th>
                         <th class="td5">ชื่อผู้ประสบเหตุ</th>
