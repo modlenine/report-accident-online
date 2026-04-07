@@ -297,28 +297,28 @@ export default {
         });
     },
     loadFilterOnSessionStorage()
-{
+    {
         const proxy = this;
-  let getfilterObject = localStorage.getItem("filterObject");
-  console.log(JSON.parse(getfilterObject));
+        let getfilterObject = localStorage.getItem("filterObject");
+        console.log(JSON.parse(getfilterObject));
 
-  if(getfilterObject != null){
-    let startDate_filter = JSON.parse(getfilterObject).startDate_filter;
-    let endDate_filter = JSON.parse(getfilterObject).endDate_filter;
-    let acciType_filter = JSON.parse(getfilterObject).acciType_filter;
-    let userInform_filter = JSON.parse(getfilterObject).userInform_filter;
-    let userType_filter = JSON.parse(getfilterObject).userType_filter;
-    let status_filter = JSON.parse(getfilterObject).status_filter;
+      if(getfilterObject != null){
+        let startDate_filter = JSON.parse(getfilterObject).startDate_filter;
+        let endDate_filter = JSON.parse(getfilterObject).endDate_filter;
+        let acciType_filter = JSON.parse(getfilterObject).acciType_filter;
+        let userInform_filter = JSON.parse(getfilterObject).userInform_filter;
+        let userType_filter = JSON.parse(getfilterObject).userType_filter;
+        let status_filter = JSON.parse(getfilterObject).status_filter;
 
-    $('#startDate').val(startDate_filter);
-    $('#endDate').val(endDate_filter);
-    $('#filterBy-acciType').val(acciType_filter);
-    // $('#filterBy-userInform option[value="'+userInform_filter+'"]').prop('selected' , true);
-            $('#filterBy-userInform').val(userInform_filter);
-    $('#filterBy-userType').val(userType_filter);
-    $('#filterBy-status').val(status_filter);
-            proxy.loadAcciList();
-  }
+        $('#startDate').val(startDate_filter);
+        $('#endDate').val(endDate_filter);
+        $('#filterBy-acciType').val(acciType_filter);
+        // $('#filterBy-userInform option[value="'+userInform_filter+'"]').prop('selected' , true);
+                $('#filterBy-userInform').val(userInform_filter);
+        $('#filterBy-userType').val(userType_filter);
+        $('#filterBy-status').val(status_filter);
+                proxy.loadAcciList();
+      }
     },
 
     

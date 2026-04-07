@@ -107,22 +107,28 @@ export default {
 
 					let sessionData = res.data.session_data;
 
-
 					let userData = {
-						'Dept':sessionData.Dept,
-						'DeptCode':sessionData.DeptCode,
-						'Fname':sessionData.Fname,
-						'Lname':sessionData.Lname,
-						'ecode':sessionData.ecode,
-						'file_img':sessionData.file_img,
-						'memberemail':sessionData.memberemail,
-						'posi':sessionData.posi,
-						'username':sessionData.username,
-						'dateExpire':res.data.dateExpire,
-						'checkDate':res.data.checkDate
+						'mid': sessionData.mid,
+						'username': sessionData.username,
+						'ecode': sessionData.ecode,
+						'Fname': sessionData.Fname,
+						'Lname': sessionData.Lname,
+						'Dept': sessionData.Dept,
+						'DeptCode': sessionData.DeptCode,
+						'memberemail': sessionData.memberemail,
+						'file_img': sessionData.file_img,
+						'posi': sessionData.posi,
+						'areaid': sessionData.areaid,
+						'loginexpire': res.data.loginexpire,
+						'loginexpire_con': res.data.loginexpire_con,
+						'timeNow': res.data.timeNow,
+						'timeNow_con': res.data.timeNow_con
 					}
 
 					localStorage.setItem('userData' , JSON.stringify(userData));
+					
+					// Update Vuex store
+					this.$store.commit('setUserData', userData);
 
 					Swal.fire({
 						title: 'ลงชื่อเข้าใช้สำเร็จ',
@@ -130,7 +136,7 @@ export default {
 						showConfirmButton: false,
 						timer:1000
 					}).then(function(){
-						location.href = window.location.href;
+						location.href = proxy.baseurl;
 					});
 				}else if(res.data.status == "Login failed"){
 					Swal.fire({
@@ -144,15 +150,6 @@ export default {
 				}else if(res.data.status == "Login failed please fill username and password"){
 					Swal.fire({
 						title: 'กรุณากรอก Username & Password',
-						icon: 'error',
-						showConfirmButton: false,
-						timer:1000
-					}).then(function(){
-						location.href = proxy.baseurl;
-					});
-				}else if(res.data.status == "You can not access this program"){
-					Swal.fire({
-						title: 'คุณไม่สามารถเข้าใช้งานโปรแกรมนี้ได้',
 						icon: 'error',
 						showConfirmButton: false,
 						timer:1000

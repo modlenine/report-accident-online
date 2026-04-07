@@ -101,6 +101,9 @@
 
 <script>
 import $ from 'jquery';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
 export default {
     name:'Header',
     props:[
@@ -123,9 +126,9 @@ export default {
         this.getUserData();
         console.log(this.resultUserData);
         console.log('Public path'+process.env.NODE_ENV);
+        
         $('#logoutBtn').click(function(){
-            localStorage.removeItem('userData');
-            location.href = proxy.baseurl;
+            proxy.logout();
         });
 
         $(document).on('click' , '.header-left' , function(){
@@ -150,7 +153,61 @@ export default {
                 this.userImage = 'https://intranet.saleecolour.com/intsys/usermanagement/uploads/'+this.resultUserData.file_img;
                 this.userFullname = this.resultUserData.Fname+' '+this.resultUserData.Lname;
             }
+        },
 
+        logout(){
+            const proxy = this;
+            
+            Swal.fire({
+                title: 'ต้องการออกจากระบบ?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'ออกจากระบบ',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // เรียก logout API
+                    axios.post(proxy.url + 'intsys/rao/rao_backend/api/logout', {})
+                        .then(res => {
+                            console.log('logout response:', res.data);
+                            
+                            // ลบ localStorage
+                            localStorage.removeItem('userData');
+                            
+                            // Clear Vuex store
+                            proxy.$store.commit('clearUserData');
+                            
+                            // แสดงข้อความสำเร็จ
+                            Swal.fire({
+                                title: 'ออกจากระบบสำเร็จ',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 1000
+                            }).then(() => {
+                                // Logout: redirect ไป intranet login โดยไม่มี return_url
+                                if (process.env.NODE_ENV === 'production') {
+                                    window.location.href = '/intranet/login';
+                                } else {
+                                    location.href = proxy.baseurl;
+                                }
+                            });
+                        })
+                        .catch(err => {
+                            console.error('logout error:', err);
+                            
+                            // แม้ API error ก็ยังลบ localStorage
+                            localStorage.removeItem('userData');
+                            proxy.$store.commit('clearUserData');
+                            
+                            // Logout: redirect ไป intranet login โดยไม่มี return_url
+                            if (process.env.NODE_ENV === 'production') {
+                                window.location.href = '/intranet/login';
+                            } else {
+                                location.href = proxy.baseurl;
+                            }
+                        });
+                }
+            });
         },
 
     },
